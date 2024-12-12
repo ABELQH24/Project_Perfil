@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Perfil Profesional</title>
+</head>
+<body>
+    <h1>Mis Logros</h1>
+    <ul>
+        {% for logro in logros %}
+            <li>
+                <strong>{{ logro.titulo }}</strong><br>
+                <p>{{ logro.descripcion }}</p>
+                {% if logro.imagen %}
+                    <img src="{{ logro.imagen.url }}" alt="{{ logro.titulo }}" width="300">
+                {% elif logro.archivo %}
+                    <a href="{{ logro.archivo.url }}" target="_blank">Ver Certificado</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h1>Mis Proyectos</h1>
+    <ul>
+        {% for proyecto in proyectos %}
+            <li>
+                <strong>{{ proyecto.nombre }}</strong><br>
+                <p>{{ proyecto.descripcion }}</p>
+                {% if proyecto.video %}
+                    <video width="320" height="240" controls>
+                        <source src="{{ proyecto.video.url }}" type="video/mp4">
+                        Tu navegador no soporta el formato de video.
+                    </video>
+                {% elif proyecto.archivo %}
+                    <a href="{{ proyecto.archivo.url }}" target="_blank">Ver Proyecto</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h1>Mi Experiencia</h1>
+    <ul>
+        {% for experiencia in experiencias %}
+            <li>
+                <strong>{{ experiencia.puesto }} en {{ experiencia.empresa }}</strong><br>
+                <p>{{ experiencia.descripcion }}</p>
+                <p>Desde: {{ experiencia.inicio }} hasta: {{ experiencia.fin|default:"Actualidad" }}</p>
+                {% if experiencia.foto %}
+                    <img src="{{ experiencia.foto.url }}" alt="{{ experiencia.puesto }}" width="300">
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
