@@ -8,3 +8,6 @@ python -m pip install Pillow
  
 python manage.py makemigrations
 python manage.py migrate
+
+
+#Añadir: pip install django-widget-tweaks

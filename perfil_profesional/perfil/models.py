@@ -17,7 +17,7 @@ class Proyecto(models.Model):
     archivo = models.FileField(upload_to = 'proyectos/', null = True, blank = True)
     video = models.FileField(upload_to='proyectos_videos/', null = True, blank = True)
 
-    def __str__(self):
+    def __str__(self):  
         return self.nombre
     
 class Experiencia(models.Model):
@@ -32,3 +32,11 @@ class Experiencia(models.Model):
         return f'{self.puesto} en la empresa {self.empresa}'
     
 
+class Contacto(models.Model):
+    nombre = models.CharField(max_length=255)
+    email = models.EmailField()
+    mensaje = models.TextField()
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Contacto de {self.nombre} - {self.email}'

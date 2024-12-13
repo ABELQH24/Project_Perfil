@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Logros{% endblock %}
+
+{% block header %}
+<!-- Deja este bloque vacío para que no se muestre el encabezado -->
+{% endblock %}
+
+{% block nav %}
+<!-- Deja este bloque vacío para que no se muestre la navegación -->
+{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>Lista de Logros</h1>
+    </header>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <div class="container mt-4">
+        {% if logros %}
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Archivo</th>
+                        <th>Imagen</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for logro in logros %}
+                        <tr>
+                            <td>{{ logro.titulo }}</td>
+                            <td>
+                                {% if logro.descripcion %}
+                                    {{ logro.descripcion }}
+                                {% else %}
+                                    Sin Descripción
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if logro.archivo %}
+                                    <a href="{{ logro.archivo.url }}">Descargar archivo</a>
+                                {% else %}
+                                    No disponible
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if logro.imagen %}
+                                    <img src="{{ logro.imagen.url }}" alt="{{ logro.titulo }}" style="max-width: 100px;">
+                                {% else %}
+                                    No disponible
+                                {% endif %}
+                            </td>
+                            <td>
+                                <form action="{% url 'eliminar_logro' logro.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger" type="submit">ELIMINAR</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay logros disponibles.</p>
+        {% endif %}
+    </div>
+{% endblock %}

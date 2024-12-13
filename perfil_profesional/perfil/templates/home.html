@@ -1,31 +1,38 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Mi Perfil Profesional</title>
-</head>
-<body>
-    <h1>Mis Logros</h1>
+{% extends 'base.html' %}
+
+{% block title %}Inicio - Mi Perfil Profesional{% endblock %}
+{% block content %}
+<section id="presentacion" class="active">
+    <h1>Presentación</h1>
+    <p>Bienvenido a mi portafolio. Aquí encontrarás información sobre mis logros, proyectos y experiencias profesionales.</p>
+</section>
+
+<section id="logros">
+    <h1>Logros</h1>
     <ul>
         {% for logro in logros %}
             <li>
                 <strong>{{ logro.titulo }}</strong><br>
                 <p>{{ logro.descripcion }}</p>
                 {% if logro.imagen %}
-                    <img src="{{ logro.imagen.url }}" alt="{{ logro.titulo }}" width="300">
-                {% elif logro.archivo %}
-                    <a href="{{ logro.archivo.url }}" target="_blank">Ver Certificado</a>
+                    <img src="{{ logro.imagen.url }}" alt="{{ logro.titulo }}">
+                {% endif %}
+                {% if logro.archivo %}
+                    <a href="{{ logro.archivo.url }}" target="_blank">Ver Logro</a>
                 {% endif %}
             </li>
         {% endfor %}
     </ul>
+</section>
 
-    <h1>Mis Proyectos</h1>
+<section id="proyectos">
+    <h1>Proyectos</h1>
     <ul>
         {% for proyecto in proyectos %}
             <li>
                 <strong>{{ proyecto.nombre }}</strong><br>
                 <p>{{ proyecto.descripcion }}</p>
+                <p>Fecha: {{ proyecto.fecha }}</p>
                 {% if proyecto.video %}
                     <video width="320" height="240" controls>
                         <source src="{{ proyecto.video.url }}" type="video/mp4">
@@ -37,19 +44,29 @@
             </li>
         {% endfor %}
     </ul>
+</section>
 
-    <h1>Mi Experiencia</h1>
+<section id="experiencias">
+    <h1>Experiencias</h1>
     <ul>
         {% for experiencia in experiencias %}
             <li>
-                <strong>{{ experiencia.puesto }} en {{ experiencia.empresa }}</strong><br>
+                <strong>{{ experiencia.puesto }}</strong> en <strong>{{ experiencia.empresa }}</strong><br>
                 <p>{{ experiencia.descripcion }}</p>
-                <p>Desde: {{ experiencia.inicio }} hasta: {{ experiencia.fin|default:"Actualidad" }}</p>
+                <p>Desde: {{ experiencia.inicio }} Hasta: {{ experiencia.fin }}</p>
                 {% if experiencia.foto %}
-                    <img src="{{ experiencia.foto.url }}" alt="{{ experiencia.puesto }}" width="300">
+                    <img src="{{ experiencia.foto.url }}" alt="{{ experiencia.puesto }}">
                 {% endif %}
             </li>
         {% endfor %}
     </ul>
-</body>
-</html>
+</section>
+
+<section id="contacto">
+    <h1>Contacto</h1>
+    <p><strong>Nombre:</strong> Tu Nombre</p>
+    <p><strong>Email:</strong> tuemail@example.com</p>
+    <p><strong>Teléfono:</strong> +123 456 7890</p>
+    <p><strong>Dirección:</strong> Tu Dirección, Ciudad, País</p>
+</section>
+{% endblock %}
